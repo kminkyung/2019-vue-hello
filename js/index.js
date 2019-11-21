@@ -1,31 +1,34 @@
+/* Import Model */
 import PrdResult from './models/PrdResult.js'
+
+/* Import  Component */
+import SearchComponent from './components/searchComponent.js'
+
 
 new Vue({
 	el: "#app",
 	data: {
 		title: "vue를 배워봅시다.",
-		str: '',
 		isPrdView: true,
-		items: [],
+		searchBarQuery: '',
 		isSubmit: false
 	},
 	created() {
-
+	},
+	components: {
+		'search-bar': SearchComponent,
 	},
 	methods: {
 		onTogglePrd(e) {
 			this.isPrdView = !this.isPrdView;
 		},
-		onSearchReset(e) {
-			this.str = '';
+		onSearchReset() {
 			this.isSubmit = false;
-			this.items = [];
+			this.items = []; // items 초기화
 		},
-		onSubmit(e) {
+		onSubmit(query) {
+			this.searchBarQuery = query;
 			this.searchResult();
-		},
-		onKeyup(e) {
-			if(!this.str.length) this.onSearchReset();
 		},
 		searchResult() {
 			PrdResult.list().then((result) => {

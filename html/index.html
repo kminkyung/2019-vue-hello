@@ -19,10 +19,7 @@
 				<h1>{{title}}</h1>
 			</div>
 			<div class="search-wrap">
-				<form v-on:submit.prevent="onSubmit">
-					<input type="text" class="form-control my-5" name="search" placeholder="검색어를 입력하세요." v-model="str" v-on:keyup="onKeyup">
-					<i class="fas fa-times-circle btn-reset" v-show="str.length" v-on:click="onSearchReset"></i>
-				</form>
+				<search-bar v-bind:value="searchBarQuery" v-on:@submit="onSubmit" v-on:@reset="onSearchReset"></search-bar>
 			</div>
 			<div v-if="isSubmit">
 				<div class="my-2">
@@ -47,3 +44,12 @@
 </body>
 
 </html>
+
+
+
+<template id="search-bar">
+		<form v-on:submit.prevent="onSubmit">
+			<input type="text" class="form-control my-5" name="search" placeholder="검색어를 입력하세요." v-model="query" v-on:keyup="onKeyup">
+			<i class="fas fa-times-circle btn-reset" v-show="query.length" v-on:click="onSearchReset"></i>
+		</form>
+</template>
